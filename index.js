@@ -1,7 +1,11 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const path = require('path');
+
+// Express will serve up production assests
+// like our main.js file, or main.css file.
+app.use(express.static('client'));
 
 // Parse imcoming request bodies and enable req.body.
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,6 +27,7 @@ app.get('/json', function(req, res) {
 });
 
 app.get('/socketio', function(req, res) {
+  const path = require('path');
   res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
 });
 
