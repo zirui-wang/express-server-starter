@@ -1,5 +1,7 @@
 # Express Server Starter
 
+Express server boilerplate covering `GET/POST` request, `Socket`, and `EventSource`.
+
 ## Setup
 
 ```sh
