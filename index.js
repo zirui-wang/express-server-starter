@@ -1,6 +1,7 @@
 const app = require('express')();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 // Parse imcoming request bodies and enable req.body.
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -10,7 +11,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
 });
 
 const server = require('http').createServer(app);
