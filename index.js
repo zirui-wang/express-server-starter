@@ -1,16 +1,57 @@
-const express = require('express');
+const app = require('express')();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 
-const app = express();
-
+// Parse imcoming request bodies and enable req.body.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// CORS.
 app.use(cors());
 
-app.get('/users', (req, res) => {
-  res.send("");
+app.get('/', function(req, res) {
+  res.send('Hello world!');
 });
 
+app.get('/json', function(req, res) {
+  const data = {
+    country: 'France',
+    age: 18
+  };
+  res.json(data);
+});
+
+app.get('/socketio', function(req, res) {
+  res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
+});
+
+// EventSource
+app.get('/eventsource', function(req, res) {
+  res.writeHead(200, {
+    Connection: 'keep-alive',
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache'
+  });
+
+  const data = 'Welcome to use EventSource';
+
+  setInterval(() => {
+    console.log('writing ' + testdata);
+    res.write('data: ' + JSON.stringify({ msg: data }) + '\n\n');
+  }, 1000);
+});
+
+// socket.io
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
+io.on('connection', function(socket) {
+  socket.on('chat message', function(msg) {
+    io.emit('chat message', msg);
+  });
+});
+
+// Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log('Listening on ' + PORT));
+server.listen(PORT, () => console.log('Listening on ' + PORT));
