@@ -12,6 +12,11 @@ npm install
 node index.js
 ```
 
+## TODOs
+
+- [ ] Unit test
+- [ ] Integrate test
+
 ## Licence
 
 MIT
