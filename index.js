@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -14,17 +16,7 @@ app.use(bodyParser.json());
 // CORS.
 app.use(cors());
 
-app.get('/', function(req, res) {
-  res.send('Hello world!');
-});
-
-app.get('/json', function(req, res) {
-  const data = {
-    country: 'France',
-    age: 18
-  };
-  res.json(data);
-});
+app.use('/api', require('./routes')(app));
 
 app.get('/socketio', function(req, res) {
   const path = require('path');

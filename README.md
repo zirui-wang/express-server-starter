@@ -14,6 +14,7 @@ node index.js
 
 ## TODOs
 
+- [X] Route modular
 - [ ] Unit test
 - [ ] Integrate test
 
