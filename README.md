@@ -9,7 +9,7 @@ Express server boilerplate covering modular `GET/POST/PUT/DELETE` routing, `Sock
 npm install
 
 # Start server
-node index.js
+npm start
 ```
 
 ## TODOs
