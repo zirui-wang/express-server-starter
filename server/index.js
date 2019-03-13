@@ -5,6 +5,8 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+const keys = require('./config/keys');
+
 // Express will serve up production assests
 // like our main.js file, or main.css file.
 app.use(express.static('client'));
