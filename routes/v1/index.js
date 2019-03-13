@@ -2,8 +2,10 @@
 
 const v1 = require('express').Router();
 
+const router = require('../router');
+
 module.exports = app => {
-  v1.use('/', require('./greeting')(app));
-  v1.use('/', require('./json')(app));
+  const routes = [require('./greeting'), require('./json')];
+  v1.use('/', router(routes, app));
   return v1;
 };
