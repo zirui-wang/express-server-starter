@@ -1,6 +1,6 @@
 # Express Server Starter
 
-Express server boilerplate covering `GET/POST` request, `Socket`, and `EventSource`.
+Express server boilerplate covering modular `GET/POST/PUT/DELETE` routing, `Socket`, and `EventSource`.
 
 ## Setup
 

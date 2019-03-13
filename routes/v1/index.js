@@ -5,7 +5,6 @@ const v1 = require('express').Router();
 const router = require('../router');
 
 module.exports = app => {
-  const routes = [require('./greeting'), require('./json')];
-  v1.use('/', router(routes, app));
+  v1.use('/', router(app, __dirname));
   return v1;
 };

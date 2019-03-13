@@ -3,9 +3,10 @@
 const router = require('express').Router();
 
 const dispatcher = require('./dispatcher');
+const scanner = require('./scanner');
 
-module.exports = (routes, app) => {
-  routes.forEach(route => {
+module.exports = (app, dir) => {
+  scanner(dir).forEach(route => {
     dispatcher(router, route(app));
   });
 
