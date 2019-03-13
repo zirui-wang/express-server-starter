@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -13,6 +15,8 @@ app.use(bodyParser.json());
 
 // CORS.
 app.use(cors());
+
+app.use('/api', require('./routes')(app));
 
 app.get('/', function(req, res) {
   res.send('Hello world!');
