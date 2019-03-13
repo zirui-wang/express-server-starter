@@ -3,10 +3,10 @@
 const v1 = require('express').Router();
 
 const router = require('../router');
-const scanRoutes = require('../scan-routes');
+const scanner = require('../scanner');
 
 module.exports = app => {
-  const routes = scanRoutes(__dirname)
+  const routes = scanner(__dirname)
   v1.use('/', router(routes, app));
   return v1;
 };
