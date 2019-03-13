@@ -18,18 +18,6 @@ app.use(cors());
 
 app.use('/api', require('./routes')(app));
 
-app.get('/', function(req, res) {
-  res.send('Hello world!');
-});
-
-app.get('/json', function(req, res) {
-  const data = {
-    country: 'France',
-    age: 18
-  };
-  res.json(data);
-});
-
 app.get('/socketio', function(req, res) {
   const path = require('path');
   res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
