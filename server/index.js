@@ -18,7 +18,8 @@ app.use(bodyParser.json());
 // CORS.
 app.use(cors());
 
-app.use('/api', require('./routes')(app));
+const router = require('./load-routes')(app);
+app.use('/api', router);
 
 app.get('/socketio', function(req, res) {
   const path = require('path');
