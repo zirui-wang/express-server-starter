@@ -4,6 +4,8 @@ const router = require('express').Router();
 const path = require('path');
 const requireDir = require('require-dir');
 
+const DEFAULT_PATH = 'src';
+
 function flattenObject(obj) {
   const toReturn = {};
 
@@ -24,10 +26,10 @@ function flattenObject(obj) {
   return toReturn;
 }
 
-function getBaseUrl(name) {
+function getBaseUrl(prefix, name) {
   const index = name.lastIndexOf('/');
-  if (index === -1) return '';
-  return '/' + name.substring(0, index);
+  if (index === -1) return prefix;
+  return prefix + '/' + name.substring(0, index);
 }
 
 function dispatch(baseUrl, route) {
@@ -47,14 +49,18 @@ function dispatch(baseUrl, route) {
     case 'delete':
       router.delete(curUrl, handler);
       break;
+    case 'patch':
+      router.patch(curUrl, handler);
     default:
       break;
   }
 }
 
-module.exports = app => {
+module.exports = config => {
+  const { app = {}, root = DEFAULT_PATH, prefix = '' } = config;
+
   const dir = flattenObject(
-    requireDir(path.resolve(__dirname, 'routes'), {
+    requireDir(path.resolve(root, 'routes'), {
       recurse: true,
       filter: function(fullPath) {
         return !fullPath.endsWith('index.js');
@@ -63,7 +69,7 @@ module.exports = app => {
   );
 
   for (let name in dir) {
-    dispatch(getBaseUrl(name), dir[name](app));
+     dispatch(getBaseUrl(prefix, name), dir[name](app));
   }
 
   return router;
