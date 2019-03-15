@@ -1,10 +1,7 @@
 'use strict';
 
-const router = require('express').Router();
 const path = require('path');
 const requireDir = require('require-dir');
-
-const DEFAULT_PATH = 'src';
 
 function flattenObject(obj) {
   const toReturn = {};
@@ -32,32 +29,32 @@ function getBaseUrl(prefix, name) {
   return prefix + '/' + name.substring(0, index);
 }
 
-function dispatch(baseUrl, route) {
+function dispatch(app, baseUrl, route) {
   const { method, url, handler } = route;
   const curUrl = baseUrl + url;
 
   switch (method.toLowerCase()) {
     case 'get':
-      router.get(curUrl, handler);
+      app.get(curUrl, handler);
       break;
     case 'post':
-      router.post(curUrl, handler);
+      app.post(curUrl, handler);
       break;
     case 'put':
-      router.put(curUrl, handler);
+      app.put(curUrl, handler);
       break;
     case 'delete':
-      router.delete(curUrl, handler);
+      app.delete(curUrl, handler);
       break;
     case 'patch':
-      router.patch(curUrl, handler);
+      app.patch(curUrl, handler);
     default:
       break;
   }
 }
 
 module.exports = config => {
-  const { app = {}, root = DEFAULT_PATH, prefix = '' } = config;
+  const { app = {}, root, prefix = '' } = config;
 
   const dir = flattenObject(
     requireDir(path.resolve(root, 'routes'), {
@@ -69,8 +66,6 @@ module.exports = config => {
   );
 
   for (let name in dir) {
-     dispatch(getBaseUrl(prefix, name), dir[name](app));
+    dispatch(app, getBaseUrl(prefix, name), dir[name](app));
   }
-
-  return router;
 };
