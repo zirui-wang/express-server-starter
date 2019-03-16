@@ -18,8 +18,10 @@ app.use(bodyParser.json());
 // CORS.
 app.use(cors());
 
-require('./load-routes')({ app: app, root: __dirname, prefix: '/api' });
-// app.use('/api', router);
+require('./load-routes')(app, __dirname, {
+  prefix: '/api',
+  filter: filename => filename !== 'json.js'
+});
 
 app.get('/socketio', function(req, res) {
   const path = require('path');
