@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./tests --recursive"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,8 @@
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2",
     "nodemon": "^1.18.10"
   }
 }
