@@ -12,7 +12,7 @@ const res = {
   }
 };
 
-describe('#greeting', () => {
+describe('#Unit:Integration greeting', () => {
   it('Should be GET request', () => {
     expect(greeting(app).method.toLowerCase()).to.equals('get');
   });

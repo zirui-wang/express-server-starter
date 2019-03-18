@@ -19,8 +19,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 require('./load-routes')(app, __dirname, {
-  prefix: '/api',
-  filter: filename => filename !== 'json.js'
+  prefix: '/api'
 });
 
 app.get('/socketio', function(req, res) {
@@ -57,3 +56,5 @@ io.on('connection', function(socket) {
 // Start server
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log('Listening on ' + PORT));
+
+module.exports = server;
